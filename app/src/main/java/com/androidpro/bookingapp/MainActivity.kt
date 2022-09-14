@@ -3,7 +3,9 @@ package com.androidpro.bookingapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.androidpro.bookingapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -13,5 +15,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
     }
 }
