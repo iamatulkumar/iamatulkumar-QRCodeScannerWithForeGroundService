@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1395" />
         <entry key="app/src/main/res/drawable/round_button.xml" value="0.1615" />
+        <entry key="app/src/main/res/drawable/shape_upper_round.xml" value="0.154" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27445652173913043" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/dialog_permission_alert.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/layout/fragment_booking.xml" value="0.2598958333333333" />
-        <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.21010742187499998" />
       </map>
     </option>
   </component>

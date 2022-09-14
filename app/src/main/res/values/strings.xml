@@ -2,5 +2,6 @@
     <string name="app_name">BookingApp</string>
     <string name="booking_fragment_label">BookingApp</string>
     <string name="booking_fragment_scan_now">Scan now</string>
-    <string name="scanner_error">%s</string>
+    <string name="scanner_fragment_camera_permission">Allow Camera</string>
+    <string name="permission_dialog_camera_description">Please allow camera permission to Scan QR code</string>
 </resources>

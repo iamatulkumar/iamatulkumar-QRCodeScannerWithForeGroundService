@@ -18,12 +18,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/BaseActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/BookingApplication.kt">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/MainActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/PermissionCard.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/PermissionDelegate.kt">
           <value>
             <set />
           </value>
@@ -43,7 +58,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/drawable/shape_upper_round.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/dialog_permission_alert.xml">
           <value>
             <set />
           </value>
@@ -89,6 +114,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../personal/android-navigation/app/src/main/java/com/example/android/codelabs/navigation/MainActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/loanapplication/findaya/FindayaWebViewActivity.kt">
           <value>
             <set />
           </value>
