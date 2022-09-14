@@ -11,9 +11,20 @@
         android:label="@string/booking_fragment_label"
         tools:layout="@layout/fragment_booking">
 
-        <!--<action
+        <action
             android:id="@+id/action_BookingFragment_to_ScannerFragment"
-            app:destination="@id/ScannerFragment" />-->
+            app:destination="@id/ScannerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ScannerFragment"
+        android:name="com.androidpro.bookingapp.ui.ScannerFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_scanner">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/BookingFragment" />
     </fragment>
 
 </navigation>

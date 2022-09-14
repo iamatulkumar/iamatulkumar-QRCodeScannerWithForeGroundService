@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.androidpro.bookingapp.R
 import com.androidpro.bookingapp.databinding.FragmentBookingBinding
 
 class BookingFragment : Fragment() {
@@ -35,6 +37,10 @@ class BookingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnScanNow.setOnClickListener {
+            findNavController().navigate(R.id.action_BookingFragment_to_ScannerFragment)
+        }
     }
 
     override fun onDestroyView() {
