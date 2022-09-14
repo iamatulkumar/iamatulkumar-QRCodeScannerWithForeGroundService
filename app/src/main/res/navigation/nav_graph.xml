@@ -2,6 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/BookingFragment">
+
+    <fragment
+        android:id="@+id/BookingFragment"
+        android:name="com.androidpro.bookingapp.ui.BookingFragment"
+        android:label="@string/booking_fragment_label"
+        tools:layout="@layout/fragment_booking">
+
+        <!--<action
+            android:id="@+id/action_BookingFragment_to_ScannerFragment"
+            app:destination="@id/ScannerFragment" />-->
+    </fragment>
 
 </navigation>

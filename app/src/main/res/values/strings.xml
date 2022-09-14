@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookingApp</string>
+    <string name="booking_fragment_label">BookingApp</string>
+    <string name="booking_fragment_scan_now">Scan now</string>
 </resources>
