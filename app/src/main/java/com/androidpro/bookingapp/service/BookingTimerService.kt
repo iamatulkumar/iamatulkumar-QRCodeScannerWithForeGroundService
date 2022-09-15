@@ -1,7 +1,6 @@
 package com.androidpro.bookingapp.service
 
 import android.app.NotificationChannel
-import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.util.Log
@@ -11,20 +10,25 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
-import com.androidpro.bookingapp.MainActivity
-import com.androidpro.bookingapp.R
 import com.androidpro.bookingapp.util.Constant
 import com.androidpro.bookingapp.util.TimerUtil
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class BookingTimerService: LifecycleService() {
 
     private val TAG = BookingTimerService::class.java.simpleName
 
+    @Inject
     lateinit var notificationManagerCompat: NotificationManagerCompat
+
+    @Inject
+    lateinit var notificationBuider: NotificationCompat.Builder
 
     private var isSeviceStopped = false
 
@@ -34,7 +38,6 @@ class BookingTimerService: LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
-        notificationManagerCompat = NotificationManagerCompat.from(this)
         initialValue()
     }
 
@@ -76,14 +79,14 @@ class BookingTimerService: LifecycleService() {
 
         startForeground(
             Constant.NOTIFICATION_ID,
-            getNotificationBuilder().build()
+            notificationBuider.build()
         )
 
         serviceEvent.observe(this) {
             when (it) {
                 is TimeInMillis -> {
                     if (!isSeviceStopped) {
-                        val notificationBuilder = getNotificationBuilder().setContentText(
+                        val notificationBuilder = notificationBuider.setContentText(
                             TimerUtil.getFormattedTime(it.long)
                         )
                         notificationManagerCompat.notify(
@@ -114,25 +117,6 @@ class BookingTimerService: LifecycleService() {
         )
         notificationManagerCompat.createNotificationChannel(channel)
     }
-
-    private fun getNotificationBuilder() = NotificationCompat.Builder(
-            this,
-            Constant.NOTIFICATION_CHANNEL_ID,
-        ).setAutoCancel(false)
-            .setOngoing(true)
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("Ongoing booking time")
-            .setContentText("00:00:00").setContentIntent(getMainActivityPendingIntent())
-
-    private fun getMainActivityPendingIntent() =
-        PendingIntent.getActivity(
-            this,
-            143,
-            Intent(this, MainActivity::class.java).apply {
-                this.flags =Intent.FLAG_ACTIVITY_SINGLE_TOP
-            },
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
 }
 
 interface ServiceLiveData
