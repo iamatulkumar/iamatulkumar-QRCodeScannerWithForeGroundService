@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_scanner">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_ScannerFragment_to_BookingFragment"
             app:destination="@id/BookingFragment" />
     </fragment>
 

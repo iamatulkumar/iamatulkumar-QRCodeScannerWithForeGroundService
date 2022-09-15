@@ -1,7 +1,6 @@
 package com.androidpro.bookingapp.ui
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -13,17 +12,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.androidpro.bookingapp.BuildConfig
 import com.androidpro.bookingapp.R
+import com.androidpro.bookingapp.component.BookingAlertDialog
 import com.androidpro.bookingapp.databinding.FragmentScannerBinding
+import com.androidpro.bookingapp.viewmodel.MainSharedViewmodel
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
@@ -32,17 +33,15 @@ class ScannerFragment : Fragment() {
 
     private val TAG = ScannerFragment::class.java.simpleName
 
-    private var _binding: FragmentScannerBinding? = null
-
     private lateinit var codeScanner: CodeScanner
-
     private lateinit var requestCameraPermissionLauncher: ActivityResultLauncher<String>
+    private val viewModel: MainSharedViewmodel by activityViewModels()
 
+    private var _binding: FragmentScannerBinding? = null
     private val binding get() = _binding!!
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun onCreateView(
@@ -58,10 +57,12 @@ class ScannerFragment : Fragment() {
         val scannerView = binding.scannerView
         codeScanner = CodeScanner(requireActivity(), scannerView)
 
-        codeScanner.decodeCallback = DecodeCallback {
+        codeScanner.decodeCallback = DecodeCallback { response ->
             activity?.runOnUiThread {
-                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+                response.text?.let { onQrCodeScanResponse(it)}
+                findNavController().navigate(R.id.action_ScannerFragment_to_BookingFragment)
             }
+            response.text?.let { onQrCodeScanResponse(it)}
         }
         codeScanner.errorCallback = ErrorCallback { error: Throwable ->
             activity?.runOnUiThread {
@@ -77,6 +78,8 @@ class ScannerFragment : Fragment() {
             callCameraPermission()
         }
     }
+
+    private fun onQrCodeScanResponse(qrCodeResponse: String) = viewModel.scanQRCodeResponse(qrCodeResponse)
 
     private fun startCodeScanner() {
         codeScanner.startPreview()
@@ -126,7 +129,9 @@ class ScannerFragment : Fragment() {
 
             shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
                 Log.d(TAG, "requestCameraPermission - Camera Permission NOT Granted")
-                showDialogOK(context
+                BookingAlertDialog.showDialogOK(
+                    message = getString(R.string.permission_dialog_camera_description),
+                    context = context
                 ) { dialog, which ->
                     when (which) {
                         DialogInterface.BUTTON_POSITIVE -> requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
@@ -135,7 +140,10 @@ class ScannerFragment : Fragment() {
                 }
             }
             else -> {
-                showDialogOK(context){ dialog, which ->
+                BookingAlertDialog.showDialogOK(
+                    message = getString(R.string.permission_dialog_camera_description),
+                    context = context
+                ){ dialog, which ->
                     when (which) {
                         DialogInterface.BUTTON_POSITIVE -> {
                             showSettings()
@@ -145,15 +153,6 @@ class ScannerFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun showDialogOK(context: Context?, okListener: DialogInterface.OnClickListener) {
-        AlertDialog.Builder(context)
-            .setMessage(getString(R.string.permission_dialog_camera_description))
-            .setPositiveButton("OK", okListener)
-            .setNegativeButton("Cancel", okListener)
-            .create()
-            .show()
     }
 
     private fun showSettings() {
@@ -175,7 +174,6 @@ class ScannerFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun onDestroyView() {

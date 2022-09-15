@@ -4,4 +4,10 @@
     <string name="booking_fragment_scan_now">Scan now</string>
     <string name="scanner_fragment_camera_permission">Allow Camera</string>
     <string name="permission_dialog_camera_description">Please allow camera permission to Scan QR code</string>
+    <string name="booking_dialog_confirm_title">Booking Details</string>
+    <string name="booking_fragment_location_id">Location ID:</string>
+    <string name="booking_fragment_location_details_title">Location details:</string>
+    <string name="booking_fragment_empty_state_description">No booking found\n please scan QR code</string>
+    <string name="booking_fragment_price_per_min_title">Price per min:</string>
+    <string name="booking_fragment_start_title">Let\'s book your seat</string>
 </resources>

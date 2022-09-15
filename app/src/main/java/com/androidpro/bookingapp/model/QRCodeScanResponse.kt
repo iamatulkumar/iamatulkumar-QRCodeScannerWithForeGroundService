@@ -1,12 +1,12 @@
 package com.androidpro.bookingapp.model
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.google.gson.annotations.SerializedName
 
 data class QRCodeScanResponse(
-    @JsonProperty("location_id")
+    @SerializedName("location_id")
     val locationId: String,
-    @JsonProperty("location_details")
+    @SerializedName("location_details")
     val locationDetails: String,
-    @JsonProperty("price_per_min")
+    @SerializedName("price_per_min")
     val pricePerMin: String
 )
