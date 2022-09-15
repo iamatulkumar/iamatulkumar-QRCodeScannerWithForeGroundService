@@ -1,6 +1,7 @@
 package com.androidpro.bookingapp.ui
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,9 +15,11 @@ import androidx.navigation.fragment.findNavController
 import com.androidpro.bookingapp.R
 import com.androidpro.bookingapp.component.BookingAlertDialog
 import com.androidpro.bookingapp.databinding.FragmentBookingBinding
+import com.androidpro.bookingapp.model.BookingTimerEvent
 import com.androidpro.bookingapp.model.QRCodeScanResponse
+import com.androidpro.bookingapp.service.BookingTimerService
+import com.androidpro.bookingapp.util.Constant
 import com.androidpro.bookingapp.viewmodel.MainSharedViewmodel
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import org.json.JSONTokener
 
@@ -28,6 +31,8 @@ class BookingFragment : Fragment() {
 
     private var _binding: FragmentBookingBinding? = null
     private val binding get() = _binding!!
+
+    private var isTimerRunning: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +50,46 @@ class BookingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         handleScanNow()
         getQRCodeResponseData()
+        setServiceObserver()
+    }
+
+    private fun setServiceObserver() {
+        BookingTimerService.bookingTimerEvent.observe(viewLifecycleOwner, Observer { event ->
+            when(event) {
+                is BookingTimerEvent.START_SERVICE -> {
+                    isTimerRunning = true
+                    Log.i(TAG, "start from service")
+                }
+                is BookingTimerEvent.END_SERVICE -> {
+                    isTimerRunning = false
+                    Log.i(TAG, "end from service")
+                }
+            }
+        })
     }
 
     private fun handleScanNow() {
         binding.btnScanNow.setOnClickListener {
-            findNavController().navigate(R.id.action_BookingFragment_to_ScannerFragment)
+//            findNavController().navigate(R.id.action_BookingFragment_to_ScannerFragment)
+            toggle()
+        }
+    }
+
+    fun toggle(){
+        if(isTimerRunning) {
+            startBookingTimerService(Constant.ACTION_STOP_SERVICE)
+        } else {
+            startBookingTimerService(Constant.ACTION_START_SERVICE)
+        }
+    }
+
+    private fun startBookingTimerService(action:String) {
+        activity?.let {
+            it.startService(Intent(requireContext(), BookingTimerService::class.java)
+                .apply {
+                    this.action = action
+                })
+
         }
     }
 
