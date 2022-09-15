@@ -11,14 +11,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.androidpro.bookingapp.R
 import com.androidpro.bookingapp.component.BookingAlertDialog
 import com.androidpro.bookingapp.databinding.FragmentBookingBinding
-import com.androidpro.bookingapp.model.BookingTimerEvent
 import com.androidpro.bookingapp.model.QRCodeScanResponse
+import com.androidpro.bookingapp.service.BookingTimerEvent
 import com.androidpro.bookingapp.service.BookingTimerService
+import com.androidpro.bookingapp.service.ServiceLiveData
+import com.androidpro.bookingapp.service.TimeInMillis
 import com.androidpro.bookingapp.util.Constant
+import com.androidpro.bookingapp.util.TimerUtil
 import com.androidpro.bookingapp.viewmodel.MainSharedViewmodel
 import com.google.gson.Gson
 import org.json.JSONTokener
@@ -54,18 +55,31 @@ class BookingFragment : Fragment() {
     }
 
     private fun setServiceObserver() {
-        BookingTimerService.bookingTimerEvent.observe(viewLifecycleOwner, Observer { event ->
-            when(event) {
-                is BookingTimerEvent.START_SERVICE -> {
-                    isTimerRunning = true
-                    Log.i(TAG, "start from service")
-                }
-                is BookingTimerEvent.END_SERVICE -> {
-                    isTimerRunning = false
-                    Log.i(TAG, "end from service")
-                }
+        BookingTimerService.serviceEvent.observe(viewLifecycleOwner) { handleServiceLiveData(it) }
+    }
+
+    private fun handleServiceLiveData(serviceLiveData: ServiceLiveData) {
+        when(serviceLiveData) {
+            is BookingTimerEvent -> {
+                handleBookingTimerEvent(serviceLiveData)
             }
-        })
+            is TimeInMillis -> {
+                binding.textEmptyStateDescription.text = TimerUtil.getFormattedTime(serviceLiveData.long)
+            }
+        }
+    }
+
+    private fun handleBookingTimerEvent(bookingTimerEvent: BookingTimerEvent){
+        when(bookingTimerEvent) {
+            is BookingTimerEvent.START_SERVICE -> {
+                isTimerRunning = true
+                Log.i(TAG, "start from service")
+            }
+            is BookingTimerEvent.END_SERVICE -> {
+                isTimerRunning = false
+                Log.i(TAG, "end from service")
+            }
+        }
     }
 
     private fun handleScanNow() {

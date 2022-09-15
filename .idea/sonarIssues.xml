@@ -43,12 +43,52 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/Test.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/component/BookingAlertDialog.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/model/BookingTimerEvent.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/model/QRCodeScanResponse.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/service/BookingTimerService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/ui/BookingFragment.kt">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/ui/ScannerFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/util/Constant.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/util/TimeUtil.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/viewmodel/MainSharedViewmodel.kt">
           <value>
             <set />
           </value>
@@ -108,6 +148,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../MyHiltApplication/app/src/main/java/com/androidpro/myhiltapplication/adapter/RecyclerViewAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../demo/app/src/main/res/values/themes.xml">
           <value>
             <set />
@@ -119,6 +164,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/loanapplication/findaya/FindayaWebViewActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.kt">
           <value>
             <set />
           </value>

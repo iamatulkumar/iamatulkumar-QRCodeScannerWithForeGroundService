@@ -4,6 +4,7 @@
     package="com.androidpro.bookingapp">
 
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true"/>
