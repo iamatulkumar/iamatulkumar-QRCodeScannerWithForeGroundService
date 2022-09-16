@@ -1,6 +1,9 @@
 package com.androidpro.bookingapp.service
 
+import android.app.Notification
 import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.util.Log
@@ -10,6 +13,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.androidpro.bookingapp.util.Constant
 import com.androidpro.bookingapp.util.TimerUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +37,8 @@ class BookingTimerService: LifecycleService() {
     private var isSeviceStopped = false
 
     companion object {
-        val serviceEvent = MutableLiveData<ServiceLiveData>()
+        val serviceEvent = MutableLiveData<BookingTimerEvent>()
+        val bookingTimeInMillis = MutableLiveData<Long>()
     }
 
     override fun onCreate() {
@@ -59,7 +64,7 @@ class BookingTimerService: LifecycleService() {
         CoroutineScope(Dispatchers.Main).launch {
             while (!isSeviceStopped && serviceEvent.value!! == BookingTimerEvent.START_SERVICE){
                 val lapTime = System.currentTimeMillis() - timeStart
-                serviceEvent.postValue(TimeInMillis(lapTime))
+                bookingTimeInMillis.postValue(lapTime)
                 delay(50L)
             }
         }
@@ -67,7 +72,7 @@ class BookingTimerService: LifecycleService() {
 
     private fun initialValue() {
         serviceEvent.postValue(BookingTimerEvent.END_SERVICE)
-        serviceEvent.postValue(TimeInMillis(0L))
+        bookingTimeInMillis.postValue(0L)
     }
 
     private fun startForegroundNotificationService() {
@@ -82,22 +87,14 @@ class BookingTimerService: LifecycleService() {
             notificationBuider.build()
         )
 
-        serviceEvent.observe(this) {
-            when (it) {
-                is TimeInMillis -> {
-                    if (!isSeviceStopped) {
-                        val notificationBuilder = notificationBuider.setContentText(
-                            TimerUtil.getFormattedTime(it.long)
-                        )
-                        notificationManagerCompat.notify(
-                            Constant.NOTIFICATION_ID,
-                            notificationBuilder.build()
-                        )
-                    }
-                }
+        bookingTimeInMillis.observe(this, Observer {
+            if(!isSeviceStopped) {
+                val notificationBuilder = notificationBuider.setContentText(
+                    TimerUtil.getFormattedTime(it)
+                )
+                notificationManagerCompat.notify(Constant.NOTIFICATION_ID, notificationBuilder.build())
             }
-
-        }
+        })
     }
 
     private fun endForegroundNotificationService() {

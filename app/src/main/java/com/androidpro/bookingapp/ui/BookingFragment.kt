@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.androidpro.bookingapp.R
 import com.androidpro.bookingapp.component.BookingAlertDialog
 import com.androidpro.bookingapp.databinding.FragmentBookingBinding
 import com.androidpro.bookingapp.model.QRCodeScanResponse
@@ -55,37 +57,27 @@ class BookingFragment : Fragment() {
     }
 
     private fun setServiceObserver() {
-        BookingTimerService.serviceEvent.observe(viewLifecycleOwner) { handleServiceLiveData(it) }
-    }
-
-    private fun handleServiceLiveData(serviceLiveData: ServiceLiveData) {
-        when(serviceLiveData) {
-            is BookingTimerEvent -> {
-                handleBookingTimerEvent(serviceLiveData)
-            }
-            is TimeInMillis -> {
-                binding.textEmptyStateDescription.text = TimerUtil.getFormattedTime(serviceLiveData.long)
+        BookingTimerService.serviceEvent.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                is BookingTimerEvent.START_SERVICE -> {
+                    isTimerRunning = true
+                    Log.i(TAG, "start from service")
+                }
+                is BookingTimerEvent.END_SERVICE -> {
+                    isTimerRunning = false
+                    Log.i(TAG, "end from service")
+                }
             }
         }
-    }
 
-    private fun handleBookingTimerEvent(bookingTimerEvent: BookingTimerEvent){
-        when(bookingTimerEvent) {
-            is BookingTimerEvent.START_SERVICE -> {
-                isTimerRunning = true
-                Log.i(TAG, "start from service")
-            }
-            is BookingTimerEvent.END_SERVICE -> {
-                isTimerRunning = false
-                Log.i(TAG, "end from service")
-            }
+        BookingTimerService.bookingTimeInMillis.observe(viewLifecycleOwner) { event ->
+            binding.textBookingDurationValue.text = TimerUtil.getFormattedTime(event)
         }
     }
 
     private fun handleScanNow() {
         binding.btnScanNow.setOnClickListener {
-//            findNavController().navigate(R.id.action_BookingFragment_to_ScannerFragment)
-            toggle()
+            findNavController().navigate(R.id.action_BookingFragment_to_ScannerFragment)
         }
     }
 
@@ -155,8 +147,10 @@ class BookingFragment : Fragment() {
             textLocationIdValue.text = response.locationId
             textLocationDetailsValue.text = response.locationDetails
             textPricePerMinuteValue.text = response.pricePerMin
-            btnScanNow.text = "Complete booking"
+            btnScanNow.text = getString(R.string.booking_fragment_end_bootking_cta)
         }
+        toggle()
+        viewModel.saveBookingDetails(response)
     }
 
     override fun onDestroyView() {

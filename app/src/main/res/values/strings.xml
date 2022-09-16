@@ -10,4 +10,6 @@
     <string name="booking_fragment_empty_state_description">No booking found\n please scan QR code</string>
     <string name="booking_fragment_price_per_min_title">Price per min:</string>
     <string name="booking_fragment_start_title">Let\'s book your seat</string>
+    <string name="booking_fragment_end_bootking_cta">End your booking</string>
+    <string name="booking_fragment_booking_duration">Booking duration</string>
 </resources>
