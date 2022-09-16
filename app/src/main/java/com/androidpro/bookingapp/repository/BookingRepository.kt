@@ -41,4 +41,9 @@ class BookingRepository @Inject constructor(
             )
         }
     }
+
+    suspend fun clearAll() {
+        dataStore.edit { it.clear() }
+    }
+
 }

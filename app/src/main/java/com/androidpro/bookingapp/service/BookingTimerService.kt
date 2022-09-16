@@ -56,16 +56,18 @@ class BookingTimerService: LifecycleService() {
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun startTimer(longExtra: Long) {
-        val timeStart = if(longExtra == 0L) { System.currentTimeMillis()} else longExtra
+    private fun startTimer(startTime: Long) {
+        val timeStart = getStartTime(startTime)
         CoroutineScope(Dispatchers.Main).launch {
             while (!isSeviceStopped && serviceEvent.value!! == BookingTimerEvent.START_SERVICE){
                 val lapTime = System.currentTimeMillis() - timeStart
                 bookingTimeInMillis.postValue(lapTime)
-                delay(100L)
+                delay(500L)
             }
         }
     }
+
+    private fun getStartTime(startTime:Long) = if(startTime == 0L) { System.currentTimeMillis()} else startTime
 
     private fun initialValue() {
         serviceEvent.postValue(BookingTimerEvent.END_SERVICE)

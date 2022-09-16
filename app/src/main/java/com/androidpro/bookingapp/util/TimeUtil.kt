@@ -15,4 +15,8 @@ object TimerUtil {
             "${if (minutes < 10) "0" else ""}$minutes:" +
             "${if (seconds < 10) "0" else ""}$seconds"
     }
+
+    fun getTotalMinutes(startTime: Long, endTime:Long): Int {
+        return TimeUnit.MILLISECONDS.toMinutes(endTime-startTime).toInt()
+    }
 }

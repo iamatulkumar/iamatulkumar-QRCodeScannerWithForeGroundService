@@ -63,6 +63,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/di/NetworkModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/di/NotificationModule.kt">
           <value>
             <set />
@@ -79,6 +84,36 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/model/QRCodeScanResponse.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/model/SubmitBookingRequest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/model/SubmitBookingResponse.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/network/BaseApiResponse.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/network/BookingApiService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/network/NetworkResult.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/repository/BookingApiRepository.kt">
           <value>
             <set />
           </value>
@@ -209,6 +244,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/loanapplication/findaya/FindayaWebViewActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/dummy.kt">
           <value>
             <set />
           </value>
