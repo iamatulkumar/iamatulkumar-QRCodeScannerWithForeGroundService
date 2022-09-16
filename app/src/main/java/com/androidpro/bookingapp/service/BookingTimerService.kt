@@ -1,9 +1,6 @@
 package com.androidpro.bookingapp.service
 
-import android.app.Notification
 import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.util.Log
@@ -49,7 +46,7 @@ class BookingTimerService: LifecycleService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
             when(it.action){
-                Constant.ACTION_START_SERVICE -> startForegroundNotificationService()
+                Constant.ACTION_START_SERVICE -> startForegroundNotificationService(it.getLongExtra("bookingStartTime", 0L))
                 Constant.ACTION_STOP_SERVICE -> endForegroundNotificationService()
                 else -> {
                     Log.i(TAG, "no action found")
@@ -59,13 +56,13 @@ class BookingTimerService: LifecycleService() {
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun startTimer(){
-        val timeStart = System.currentTimeMillis()
+    private fun startTimer(longExtra: Long) {
+        val timeStart = if(longExtra == 0L) { System.currentTimeMillis()} else longExtra
         CoroutineScope(Dispatchers.Main).launch {
             while (!isSeviceStopped && serviceEvent.value!! == BookingTimerEvent.START_SERVICE){
                 val lapTime = System.currentTimeMillis() - timeStart
                 bookingTimeInMillis.postValue(lapTime)
-                delay(50L)
+                delay(100L)
             }
         }
     }
@@ -75,9 +72,9 @@ class BookingTimerService: LifecycleService() {
         bookingTimeInMillis.postValue(0L)
     }
 
-    private fun startForegroundNotificationService() {
+    private fun startForegroundNotificationService(longExtra: Long) {
         serviceEvent.postValue(BookingTimerEvent.START_SERVICE)
-        startTimer()
+        startTimer(longExtra)
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
@@ -116,11 +113,7 @@ class BookingTimerService: LifecycleService() {
     }
 }
 
-interface ServiceLiveData
-
-data class TimeInMillis(val long: Long):ServiceLiveData
-
-sealed class BookingTimerEvent: ServiceLiveData{
+sealed class BookingTimerEvent{
     object START_SERVICE:BookingTimerEvent()
     object END_SERVICE:BookingTimerEvent()
 }

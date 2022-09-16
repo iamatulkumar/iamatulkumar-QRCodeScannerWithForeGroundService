@@ -16,13 +16,15 @@ import com.androidpro.bookingapp.R
 import com.androidpro.bookingapp.component.BookingAlertDialog
 import com.androidpro.bookingapp.databinding.FragmentBookingBinding
 import com.androidpro.bookingapp.model.QRCodeScanResponse
+import com.androidpro.bookingapp.repository.BookingModel
 import com.androidpro.bookingapp.service.BookingTimerEvent
 import com.androidpro.bookingapp.service.BookingTimerService
-import com.androidpro.bookingapp.service.ServiceLiveData
-import com.androidpro.bookingapp.service.TimeInMillis
 import com.androidpro.bookingapp.util.Constant
 import com.androidpro.bookingapp.util.TimerUtil
+import com.androidpro.bookingapp.viewmodel.BookingDetails
+import com.androidpro.bookingapp.viewmodel.Failed
 import com.androidpro.bookingapp.viewmodel.MainSharedViewmodel
+import com.androidpro.bookingapp.viewmodel.ScanQrCodeSuccess
 import com.google.gson.Gson
 import org.json.JSONTokener
 
@@ -52,11 +54,37 @@ class BookingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleScanNow()
-        getQRCodeResponseData()
+//        getQRCodeResponseData()
         setServiceObserver()
     }
 
     private fun setServiceObserver() {
+        viewModel.fetchBookingDetails()
+        viewModel.bookingDetail.observe(viewLifecycleOwner) {
+            when(it) {
+                is BookingDetails -> {
+                    if(it.bookingModel.locationId.isNotEmpty() && it.bookingModel.locationId.isNotEmpty()) {
+                        with(binding) {
+                            clEmptyState.visibility = View.GONE
+                            qrDetailsView.visibility = View.VISIBLE
+                            textLocationIdValue.text = it.bookingModel.locationId
+                            textLocationDetailsValue.text = it.bookingModel.locationDetails
+                            textPricePerMinuteValue.text = it.bookingModel.pricePerMin
+                            btnScanNow.text = getString(R.string.booking_fragment_end_bootking_cta)
+                        }
+                        toggle(it.bookingModel.startTime)
+                    }
+                }
+                is ScanQrCodeSuccess -> {
+                    openConfirmDialog(it.bookingModel)
+                }
+                is Failed -> {
+                    showErrorToast()
+                }
+            }
+
+        }
+
         BookingTimerService.serviceEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
                 is BookingTimerEvent.START_SERVICE -> {
@@ -81,43 +109,39 @@ class BookingFragment : Fragment() {
         }
     }
 
-    fun toggle(){
-        if(isTimerRunning) {
-            startBookingTimerService(Constant.ACTION_STOP_SERVICE)
-        } else {
-            startBookingTimerService(Constant.ACTION_START_SERVICE)
-        }
+    private fun toggle(bookingStartTime: Long?=0L){
+        startBookingTimerService(Constant.ACTION_START_SERVICE, bookingStartTime)
     }
 
-    private fun startBookingTimerService(action:String) {
+    private fun startBookingTimerService(action:String, bookingStartTime:Long?=0L) {
         activity?.let {
             it.startService(Intent(requireContext(), BookingTimerService::class.java)
                 .apply {
                     this.action = action
+                    this.putExtra("bookingStartTime", bookingStartTime)
                 })
-
         }
     }
 
-    private fun getQRCodeResponseData() {
-        viewModel.response.observe(viewLifecycleOwner, Observer { response ->
-            when {
-               response.isNotEmpty() && response.isNotBlank() ->
-                   verifyResponse(response)
-            }
-        })
-    }
-
-    private fun verifyResponse(response: String) {
-        try {
-            val qrCodeScanResponse:QRCodeScanResponse =
-                Gson().fromJson(JSONTokener(response).nextValue().toString(), QRCodeScanResponse::class.java)
-            openConfirmDialog(qrCodeScanResponse)
-        }catch (exception:Exception) {
-            Log.i(TAG, "Error in parsing QR response")
-            showErrorToast()
-        }
-    }
+//    private fun getQRCodeResponseData() {
+//        viewModel.response.observe(viewLifecycleOwner, Observer { response ->
+//            when {
+//               response.isNotEmpty() && response.isNotBlank() ->
+//                   verifyResponse(response)
+//            }
+//        })
+//    }
+//
+//    private fun verifyResponse(response: String) {
+//        try {
+//            val qrCodeScanResponse:QRCodeScanResponse =
+//                Gson().fromJson(JSONTokener(response).nextValue().toString(), QRCodeScanResponse::class.java)
+//            //openConfirmDialog(qrCodeScanResponse)
+//        }catch (exception:Exception) {
+//            Log.i(TAG, "Error in parsing QR response")
+//            showErrorToast()
+//        }
+//    }
 
     private fun showErrorToast() {
         Toast.makeText(
@@ -127,20 +151,25 @@ class BookingFragment : Fragment() {
         ).show()
     }
 
-    private fun openConfirmDialog(response: QRCodeScanResponse) {
+    private fun openConfirmDialog(response: BookingModel) {
         BookingAlertDialog.showDialogOK(
             response.locationId,
             response.locationDetails,
             context
         ) { dialog, which ->
             when (which) {
-                DialogInterface.BUTTON_POSITIVE -> showBookingDetails(response)
+                DialogInterface.BUTTON_POSITIVE -> handleBookingDetails(response)
                 DialogInterface.BUTTON_NEGATIVE -> {dialog.dismiss()}
             }
         }
     }
 
-    private fun showBookingDetails(response: QRCodeScanResponse) {
+    private fun handleBookingDetails(response: BookingModel) {
+        viewModel.saveBookingDetails(response)
+        showBookingDetails(response)
+    }
+
+    private fun showBookingDetails(response: BookingModel) {
         with(binding) {
             clEmptyState.visibility = View.GONE
             qrDetailsView.visibility = View.VISIBLE
@@ -150,7 +179,6 @@ class BookingFragment : Fragment() {
             btnScanNow.text = getString(R.string.booking_fragment_end_bootking_cta)
         }
         toggle()
-        viewModel.saveBookingDetails(response)
     }
 
     override fun onDestroyView() {

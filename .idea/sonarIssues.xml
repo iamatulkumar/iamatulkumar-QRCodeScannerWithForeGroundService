@@ -193,6 +193,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../MyHiltApplication/app/src/main/java/com/androidpro/myhiltapplication/repository/FetchDogUseCase.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../demo/app/src/main/res/values/themes.xml">
           <value>
             <set />

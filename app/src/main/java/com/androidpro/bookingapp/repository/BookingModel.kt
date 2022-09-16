@@ -9,5 +9,5 @@ data class BookingModel(
 )
 
 enum class BookingStatus {
-    ACTIVE, INACTIVE
+    ACTIVE, INACTIVE, BLANK
 }

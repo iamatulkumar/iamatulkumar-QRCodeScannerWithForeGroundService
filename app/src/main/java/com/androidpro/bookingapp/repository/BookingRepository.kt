@@ -33,10 +33,10 @@ class BookingRepository @Inject constructor(
     suspend fun fetchBookingData(): Flow<BookingModel> {
        return dataStore.data.map {
             BookingModel(
-                locationId = BOOKING_PREFERENCE_LOCATION_ID.getStringData(it),
-                locationDetails = BOOKING_PREFERENCE_LOCATION_DETAILS.getStringData(it),
-                pricePerMin = BOOKING_PREFERENCE_PRICE_PER_MIN.getStringData(it),
-                status = BookingStatus.valueOf(BOOKING_PREFERENCE_VALID.getStringData(it)) ,
+                locationId = BOOKING_PREFERENCE_LOCATION_ID.getStringData(it)?:"",
+                locationDetails = BOOKING_PREFERENCE_LOCATION_DETAILS.getStringData(it)?:"",
+                pricePerMin = BOOKING_PREFERENCE_PRICE_PER_MIN.getStringData(it)?:"",
+                status =  BOOKING_PREFERENCE_VALID.getStringData(it)?.let { BookingStatus.valueOf(it) }?:BookingStatus.BLANK,
                 startTime = BOOKING_PREFERENCE_START_TIME.getLongData(it)
             )
         }
