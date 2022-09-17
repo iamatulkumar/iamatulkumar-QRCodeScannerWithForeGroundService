@@ -41,12 +41,12 @@ class MainSharedViewmodel @Inject constructor(
                 val qrCodeScanResponse:QRCodeScanResponse =
                     Gson().fromJson(JSONTokener(qrResponse).nextValue().toString(), QRCodeScanResponse::class.java)
                 if(!isBookingExist) {
-                    _bookingDetail.value = ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(TimerUtil.getCurrentTimeInMillis(), BookingStatus.ACTIVE))
+                    _bookingDetail.postValue(ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(TimerUtil.getCurrentTimeInMillis(), BookingStatus.ACTIVE)))
                 } else {
-                    _bookingDetail.value = ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(TimerUtil.getCurrentTimeInMillis(), BookingStatus.INACTIVE))
+                    _bookingDetail.postValue(ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(TimerUtil.getCurrentTimeInMillis(), BookingStatus.INACTIVE)))
                 }
             }catch (exception:Exception) {
-                _bookingDetail.value = Failed("Parsing Failed")
+                _bookingDetail.postValue(Failed("Parsing Failed"))
             }
         }
     }
@@ -66,7 +66,7 @@ class MainSharedViewmodel @Inject constructor(
                     if(value.status == BookingStatus.ACTIVE) {
                         isBookingExist = true
                     }
-                    _bookingDetail.value = BookingDetails(value)
+                    _bookingDetail.postValue(BookingDetails(value))
                 }
         }
     }
@@ -83,11 +83,11 @@ class MainSharedViewmodel @Inject constructor(
                }
                .flowOn(Dispatchers.IO)
                .catch {
-                   _bookingDetail.value = Failed("Response error")
+                   _bookingDetail.postValue(Failed("Response error"))
                }
                .collect{
                    isBookingExist = false
-                   _bookingDetail.value = ClearAllState()
+                   _bookingDetail.postValue(ClearAllState())
                }
                }
        }
