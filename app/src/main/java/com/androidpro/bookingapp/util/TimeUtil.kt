@@ -19,4 +19,6 @@ object TimerUtil {
     fun getTotalMinutes(startTime: Long, endTime:Long): Int {
         return TimeUnit.MILLISECONDS.toMinutes(endTime-startTime).toInt()
     }
+
+    fun getCurrentTimeInMillis() = System.currentTimeMillis()
 }

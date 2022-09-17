@@ -84,7 +84,6 @@ class ScannerFragment : Fragment() {
     private fun startCodeScanner() {
         codeScanner.startPreview()
         binding.permissionFramelayout.visibility= View.GONE
-
     }
 
     private fun callCameraPermission() {

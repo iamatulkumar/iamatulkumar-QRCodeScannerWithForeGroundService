@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.androidpro.bookingapp.di.IoDispatcher
 import com.androidpro.bookingapp.model.QRCodeScanResponse
 import com.androidpro.bookingapp.model.SubmitBookingRequest
 import com.androidpro.bookingapp.repository.BookingApiRepository
@@ -13,6 +14,7 @@ import com.androidpro.bookingapp.repository.BookingStatus
 import com.androidpro.bookingapp.util.TimerUtil
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
@@ -24,23 +26,24 @@ import javax.inject.Inject
 @HiltViewModel
 class MainSharedViewmodel @Inject constructor(
     private val bookingRepository: BookingRepository,
-    private val bookingApiRepository: BookingApiRepository
+    private val bookingApiRepository: BookingApiRepository,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
     ): ViewModel() {
 
     private val _bookingDetail: MutableLiveData<Action> = MutableLiveData()
-    val bookingDetail: LiveData<Action> = _bookingDetail
 
-    private var isBookingExist: Boolean = false
+    val bookingDetail: LiveData<Action> = _bookingDetail
+    var isBookingExist: Boolean = false
 
     fun scanQRCodeResponse(qrResponse: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             try {
                 val qrCodeScanResponse:QRCodeScanResponse =
                     Gson().fromJson(JSONTokener(qrResponse).nextValue().toString(), QRCodeScanResponse::class.java)
                 if(!isBookingExist) {
-                    _bookingDetail.value = ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(System.currentTimeMillis(), BookingStatus.ACTIVE))
+                    _bookingDetail.value = ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(TimerUtil.getCurrentTimeInMillis(), BookingStatus.ACTIVE))
                 } else {
-                    _bookingDetail.value = ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(System.currentTimeMillis(), BookingStatus.INACTIVE))
+                    _bookingDetail.value = ScanQrCodeSuccess(qrCodeScanResponse.toBookingModel(TimerUtil.getCurrentTimeInMillis(), BookingStatus.INACTIVE))
                 }
             }catch (exception:Exception) {
                 _bookingDetail.value = Failed("Parsing Failed")
@@ -71,8 +74,8 @@ class MainSharedViewmodel @Inject constructor(
     fun submitBooking(response: BookingModel) = viewModelScope.launch {
         val submitBookingRequest = SubmitBookingRequest(
             location_id = response.locationId,
-            time_spent = TimerUtil.getTotalMinutes(response.startTime, System.currentTimeMillis()),
-            end_time = System.currentTimeMillis())
+            time_spent = TimerUtil.getTotalMinutes(response.startTime, TimerUtil.getCurrentTimeInMillis()),
+            end_time = TimerUtil.getCurrentTimeInMillis())
        viewModelScope.launch {
            bookingApiRepository.submitBooking(submitBookingRequest)
                .onStart {
