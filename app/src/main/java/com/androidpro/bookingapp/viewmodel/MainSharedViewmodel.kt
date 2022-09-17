@@ -58,7 +58,7 @@ class MainSharedViewmodel @Inject constructor(
     }
 
     fun fetchBookingDetails() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             bookingRepository.fetchBookingData()
                 .flowOn(Dispatchers.IO)
                 .collect {
@@ -76,7 +76,7 @@ class MainSharedViewmodel @Inject constructor(
             location_id = response.locationId,
             time_spent = TimerUtil.getTotalMinutes(response.startTime, TimerUtil.getCurrentTimeInMillis()),
             end_time = TimerUtil.getCurrentTimeInMillis())
-       viewModelScope.launch {
+       viewModelScope.launch(dispatcher) {
            bookingApiRepository.submitBooking(submitBookingRequest)
                .onStart {
                    _bookingDetail.postValue(Loading())
@@ -93,7 +93,7 @@ class MainSharedViewmodel @Inject constructor(
        }
 
     fun clearAllData(){
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             bookingRepository.clearAll()
         }
     }
