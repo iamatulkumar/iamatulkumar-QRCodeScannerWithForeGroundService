@@ -13,7 +13,7 @@ class BookingApiRepository @Inject constructor(
     private val bookingApiService: BookingApiService
 ){
     suspend fun submitBooking(submitBookingRequest: SubmitBookingRequest) = flow {
-            val fooList = bookingApiService.submitBooking(submitBookingRequest)
-            emit(fooList)
+            val bookingResponse = bookingApiService.submitBooking(submitBookingRequest)
+            emit(bookingResponse)
         }.flowOn(Dispatchers.IO)
 }

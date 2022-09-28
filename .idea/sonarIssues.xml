@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/README.md">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle">
           <value>
             <set />
@@ -59,6 +64,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/PermissionDelegate.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/androidpro/bookingapp/Test.java">
           <value>
             <set />
           </value>
@@ -263,7 +273,122 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/ConnectivityChecker.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/ScrapeBlogActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/common/NetworkHelper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/common/ScrapeToast.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/constant/NetworkConstant.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/constant/NetworkHelper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/di/DispatcherModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/di/NetworkModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/network/ScapeBlogApiService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/network/ScrapeBlogApiService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/repository/ScrapeBlogRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/ui/ScrapeBlogActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/util/Extensions.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/java/com/androidpro/scrapeblog/viewmodel/ScrapeBlogActivityViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/res/layout/activity_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/res/layout/activity_scrape_blog.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/app/src/test/java/com/androidpro/scrapeblog/viewmodel/ScrapeBlogActivityViewModelTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../ScrapeBlog/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../demo/app/src/main/res/values/themes.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../personal/TrueCallerAndroidAssignment/TrueCallerAssignment/TrueCallerAssignment/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../personal/TrueCallerAndroidAssignment/TrueCallerAssignment/TrueCallerAssignment/gradle/wrapper/gradle-wrapper.properties">
           <value>
             <set />
           </value>
@@ -273,7 +398,72 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/analytics/AnalyticsHandler.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/analytics/event/CleverTapEvents.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/events/CTConstants.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/events/CTEvents.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/disbursement/GoModalHomeActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/disbursement/GoModalHomeFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/launch/GoModalLoanStatusActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/loanapplication/GMLoanApplicationViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/loanapplication/GMLoanApplyActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/presentation/loanapplication/findaya/FindayaWebViewActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/product/GoModalProduct.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/feature-gofin/go-modal/src/main/kotlin/com/gojek/merchant/gofin/gomodal/product/GoModalTileLaunchable.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/lib-analytics/src/main/kotlin/com/gojek/merchant/analytics/wrapper/AnalyticsApi.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../go-fin/go-resto/settings.gradle">
           <value>
             <set />
           </value>

@@ -15,9 +15,7 @@ import com.androidpro.bookingapp.util.TimerUtil
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import org.json.JSONTokener
@@ -60,7 +58,6 @@ class MainSharedViewmodel @Inject constructor(
     fun fetchBookingDetails() {
         viewModelScope.launch(dispatcher) {
             bookingRepository.fetchBookingData()
-                .flowOn(Dispatchers.IO)
                 .collect {
                         value ->
                     if(value.status == BookingStatus.ACTIVE) {
@@ -81,7 +78,6 @@ class MainSharedViewmodel @Inject constructor(
                .onStart {
                    _bookingDetail.postValue(Loading())
                }
-               .flowOn(Dispatchers.IO)
                .catch {
                    _bookingDetail.postValue(Failed("Response error"))
                }
